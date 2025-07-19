@@ -1,0 +1,30 @@
+<%- include("partials/header") %>
+
+<h2 class="text-2xl font-semibold mb-4 ml-[40%]">Your Job Applications</h2>
+
+<form action="/resumes/upload" method="GET">
+  <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 ml-[42%] mt-[5%]">Upload New Resume</button>
+</form>
+
+<ul class="mt-6 space-y-4">
+  <% jobs.forEach(job => { %>
+    <li class="bg-white p-4 rounded shadow flex justify-between items-center">
+      <div>
+        <p class="font-semibold"><%= job.company %></p>
+        <p class="text-gray-500"><%= job.role %></p>
+        
+        
+        <a href="/uploads/<%= job.file %>" target="_blank" class="text-blue-500 hover:underline">
+          View Resume
+        </a>
+      </div>
+      
+      <form action="/resumes/delete/<%= job._id %>" method="POST">
+        <button class="text-red-500 hover:underline">Delete</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+
+
+<%- include("partials/footer") %>

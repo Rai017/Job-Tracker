@@ -1,0 +1,26 @@
+<%- include("partials/header") %>
+
+<h2 class="text-2xl font-semibold mb-6">Your Uploaded Resumes</h2>
+
+<% if (resumes.length === 0) { %>
+  <p class="text-gray-500">No resumes uploaded yet.</p>
+<% } else { %>
+  <ul class="space-y-4">
+    <% resumes.forEach(resume => { %>
+      <li class="bg-white p-4 rounded shadow flex justify-between items-center">
+        <div>
+          <p class="font-semibold"><%= resume.company %> - <%= resume.role %></p>
+          <p class="text-sm text-gray-500">Uploaded: <%= resume.createdAt.toDateString() %></p>
+        </div>
+        <div class="flex space-x-4">
+          <a href="/uploads/<%= resume.filename %>" target="_blank" class="text-blue-600 hover:underline">View</a>
+          <form action="/resumes/delete/<%= resume._id %>" method="POST">
+            <button class="text-red-500 hover:underline">Delete</button>
+          </form>
+        </div>
+      </li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<%- include("partials/footer") %>
